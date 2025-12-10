@@ -1,0 +1,11 @@
+
+[project]
+name = "project1_toc"
+version = "0.1.0"
+description = "Project 1 for Theory of Computing"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.3.2",
+    "pytest>=8.4.2",
+]

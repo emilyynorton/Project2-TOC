@@ -1,0 +1,59 @@
+# .github/workflows/uv-ci.yml
+name: Python Tests with uv
+
+# Trigger the workflow on pushes or pull requests to the main branch
+on:
+  # push:
+  #   branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+# Define the sequence of jobs to be executed
+jobs:
+  test:
+    # Use the latest version of Ubuntu for the runner environment
+    runs-on: ubuntu-latest
+    
+    # Optional: Run tests against multiple Python versions using a matrix strategy
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+
+    # Define the steps for the job
+    steps:
+    - name: Checkout repository
+      # The actions/checkout action fetches your repository's code
+      uses: actions/checkout@v4
+      with:
+        # Checks out the PR branch (from fork)
+        ref: ${{ github.event.pull_request.head.ref }}
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
+      
+    - name: Install uv and a specific Python version
+      # The official astral-sh/setup-uv action installs uv and can set up Python
+      uses: astral-sh/setup-uv@v6
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Install dependencies
+      # Use uv sync to install project dependencies from your pyproject.toml
+      run: uv sync
+
+    - name: Clone private repository using PAT
+      run: |
+        # Clone using PAT (more reliable than SSH)
+        git clone https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/pkogge/Project-Private-TOC.git private-repo     
+        ls -la private-repo
+        cp -r private-repo/tests ./tests
+        cp -r private-repo/our_inputs ./our_inputs
+        ls -la
+        rm -rf private-repo
+
+    - name: Run the test files
+      # Use uv run to execute the main.py file within the project's environment
+      run: uv run pytest -s
+    # - name: Run tests with pytest
+    #   # Use uv run to execute pytest within the project's environment
+    #   run: uv run pytest
