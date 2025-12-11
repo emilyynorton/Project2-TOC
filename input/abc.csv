@@ -1,0 +1,12 @@
+abc plus
+q1,q2,q3, q4
+a, b, c, x
+a,x,_
+q1
+qaccept
+qreject
+q1,a,q2,x,R
+q2,b,q3,x,R
+q3,c,q4,x,L
+q4,x,q4,x,L
+q4,_,qaccept,_,R

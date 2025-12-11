@@ -1,0 +1,12 @@
+CopyMachine,2
+start,copy,done
+a,b,c
+a,b,c,_
+start
+done
+reject
+start,*,_,copy,*,*,S,S
+copy,a,_,copy,a,a,R,R
+copy,b,_,copy,b,b,R,R
+copy,c,_,copy,c,c,R,R
+copy,_,_,done,_,_,S,S
