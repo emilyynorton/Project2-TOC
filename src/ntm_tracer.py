@@ -11,7 +11,7 @@ class NTM_Tracer(TuringMachineSimulator):
         Ref: Section 4.1 "Trees as List of Lists" [cite: 146]
         """
         print(f"Tracing NTM: {self.machine_name} on input '{input_string}'")
-
+        
         # Initial Configuration: ["", start_state, input_string]
         # Note: Represent configuration as triples (left, state, right) [cite: 156]
         initial_config = ["", self.start_state, input_string]
@@ -150,15 +150,21 @@ class NTM_Tracer(TuringMachineSimulator):
         # converting final_node back into parent_index and node
         parent_index, f_node = final_node
         path = []
+        level = len(tree) - 1
 
         # tree is a list of [left, state, right, parent_index, transition_number] for each depth
         # we only care about the parent path that we are following
-        for depth_level in tree:
-            parent_node = depth_level[parent_index-1] # list index out of range
-            left, state, right, p_index, transition_number = parent_node
-            # update parent_index with next parent index
-            parent_index = p_index
+        while level >= 0:
+            node = tree[level][parent_index]
+            left, state, right, p_index, transition_number = node
             path.append([left, state, right])
+
+            # move up to parent
+            parent_index = p_index
+            level -= 1
+
+        # reverse to go from root to accept leaf
+        path.reverse()
 
         print()
         print("Path taken: ")
