@@ -115,10 +115,11 @@ class NTM_Tracer(TuringMachineSimulator):
             if not next_level and all_rejected:
                 # TODO: Handle "String rejected" output [cite: 258]
                 # instructions: use longest path from the start to the last reject as the execution time
+                print(f"String rejected in {depth}")
+                print()
+                print("Entire tree:")
                 for level in tree:
                     print(level)
-                print()
-                print(f"String rejected in {depth}")
                 break
 
             tree.append(next_level)
