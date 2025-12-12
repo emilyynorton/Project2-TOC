@@ -169,5 +169,5 @@ class NTM_Tracer(TuringMachineSimulator):
 
         print()
         print("Path taken: ")
-        for item in path:
-            print(item)
+        for i, item in enumerate(path):
+            print(f"Depth {i}: {item}")
