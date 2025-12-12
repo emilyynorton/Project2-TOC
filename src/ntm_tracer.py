@@ -52,8 +52,8 @@ class NTM_Tracer(TuringMachineSimulator):
                     all_rejected = False
                     print()
                     print("Entire tree:")
-                    for level in tree:
-                        print(level)
+                    for i, level in enumerate(tree):
+                        print(f"Depth {i}: {level}")
                     # passing in [parent_index, config] as the final_node parameter and passing in entire extra tree
                         # because I need to know parent index of final node to backtrack chosen path
                     self.print_trace_path([parent_index, config], extra_tree)
@@ -118,8 +118,8 @@ class NTM_Tracer(TuringMachineSimulator):
                 print(f"String rejected in {depth}")
                 print()
                 print("Entire tree:")
-                for level in tree:
-                    print(level)
+                for i, level in enumerate(tree):
+                    print(f"Depth {i}: {level}")
                 break
 
             tree.append(next_level)
