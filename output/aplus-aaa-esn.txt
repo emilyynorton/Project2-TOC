@@ -1,0 +1,16 @@
+Tracing NTM: a plus on input 'aaa'
+String accepted in 4
+
+Entire tree:
+Depth 0: [['', 'q1', 'aaa']]
+Depth 1: [['a', 'q1', 'aa'], ['a', 'q2', 'aa']]
+Depth 2: [['aa', 'q1', 'a'], ['aa', 'q2', 'a']]
+Depth 3: [['aaa', 'q1', '_'], ['aaa', 'q2', '_']]
+Depth 4: [['aa', 'q3', 'a_']]
+
+Path taken: 
+Depth 0: ['', 'q1', 'aaa']
+Depth 1: ['a', 'q1', 'aa']
+Depth 2: ['aa', 'q1', 'a']
+Depth 3: ['aaa', 'q2', '_']
+Depth 4: ['aa', 'q3', 'a_']
